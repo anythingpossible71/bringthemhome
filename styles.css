@@ -1,0 +1,237 @@
+k* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    direction: rtl; /* For Hebrew text */
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.main-title {
+    background-color: #000;
+    color: #fff;
+    padding: 15px;
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.subtitle {
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.game-container {
+    background-color: transparent;
+    padding: 0;
+    margin-bottom: 30px;
+    box-shadow: none;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: none;
+}
+
+.matches {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Responsive grid to fit all cards */
+    gap: 10px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    aspect-ratio: 1/1; /* Make cards square */
+    background-color: #fff;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s, filter 0.3s, background-color 0.3s;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    border-radius: 8px; /* Add rounded corners */
+    padding: 0; /* Reset padding */
+    margin: 5px; /* Add margin instead of padding */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card.selected {
+    box-shadow: 0 0 0 3px #f1c40f;
+    position: relative;
+}
+
+/* Add ribbon to matched image cards */
+.image-card.matched::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    background-image: url('https://raw.githubusercontent.com/anythingpossible71/bringthemhome/refs/heads/main/ribbon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 10;
+}
+
+.card.matched {
+    box-shadow: 0 0 0 3px #f1c40f;
+    cursor: default;
+    overflow: visible;
+}
+
+.card.matched:hover {
+    transform: none;
+}
+
+.name-card {
+    background-color: #ecf0f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.name-card.matched {
+    background-color: #f1c40f;
+}
+
+.name-card .card-content {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    word-break: break-word;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Image cards */
+.image-card {
+    padding: 0;
+}
+
+/* Apply grayscale to all images initially */
+.image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Make image fill the entire card */
+    filter: grayscale(100%);
+    transition: filter 0.3s;
+    display: block; /* Ensure proper display */
+}
+
+/* Remove grayscale when matched */
+.image-card.matched img {
+    filter: grayscale(0%);
+}
+
+/* Style for matched image cards with name at bottom */
+.image-card.matched {
+    position: relative;
+    overflow: hidden; /* Keep overflow hidden to contain the name */
+}
+
+/* Style for the name div at the bottom of matched image cards */
+.card-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f1c40f;
+    color: #000;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+    z-index: 5;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 30%;
+    box-sizing: border-box;
+}
+
+/* Ensure the card content is properly contained */
+.card-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .game-board {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
+    }
+    
+    .card {
+        height: 160px;
+    }
+    
+    .name-card .card-content {
+        font-size: 1rem;
+    }
+    
+    .image-card img {
+        max-height: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-board {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    
+    .card {
+        height: 140px;
+    }
+    
+    .stats {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}
